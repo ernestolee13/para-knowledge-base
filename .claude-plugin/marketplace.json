@@ -1,0 +1,16 @@
+{
+  "name": "para-knowledge-base",
+  "owner": {
+    "name": "ErnestoLee"
+  },
+  "plugins": [
+    {
+      "name": "para-knowledge-base",
+      "source": {
+        "source": "github",
+        "repo": "ernestolee13/para-knowledge-base"
+      },
+      "description": "LLM Knowledge Base for PARA-structured Obsidian vaults. Inspired by Karpathy's llm-wiki pattern."
+    }
+  ]
+}

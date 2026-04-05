@@ -1,0 +1,82 @@
+# Obsidian Vault Rules
+
+## Vault Structure (PARA)
+
+This vault follows the PARA method:
+
+| Folder | Purpose | Contains |
+|--------|---------|----------|
+| `0. Common/` | Shared files | Daily notes, weekly notes, dashboard, KB index, log |
+| `1. Projects/` | Active projects | Time-bound work with deliverables |
+| `2. Areas/` | Ongoing areas | Responsibilities with no end date (Paper, Career, etc.) |
+| `3. Resources/` | Reference material | Topic-organized resources (Infra, MLOps, etc.) |
+| `4. Archive/` | Inactive items | Completed or paused projects |
+| `Inbox/` | Raw input | New documents awaiting classification |
+
+## Knowledge Base Rules
+
+This vault uses the LLM Knowledge Base pattern (inspired by Karpathy's llm-wiki):
+- **Inbox/** = raw input (landing zone)
+- **PARA directories** = compiled knowledge (organized, linked, indexed)
+- **CLAUDE.md** = schema (rules governing the vault)
+
+### Operations
+
+| Operation | Command | When |
+|-----------|---------|------|
+| **Ingest** | `/kb-ingest` | New documents arrive in Inbox |
+| **Query** | `/kb-query "question"` | Search and synthesize from vault |
+| **Lint** | `/kb-lint` | Periodic health check |
+| **Index** | `/kb-index` | Rebuild all indexes after reorganization |
+
+### Index System
+
+- `0. Common/index.md` — top-level vault overview (~30 lines)
+- `{category}/_index.md` — per-category index (~10-20 lines each)
+- `0. Common/log.md` — append-only activity log
+
+**Index update rules:**
+- Update relevant `_index.md` when adding/moving/archiving documents
+- Update `0. Common/index.md` when category-level changes occur
+- Append to `log.md` for every ingest, lint, or index-rebuild operation
+
+### Tag Conventions
+
+| Prefix | Purpose | Example |
+|--------|---------|---------|
+| `#proj/<name>` | Project identifier | `#proj/my-project` |
+| `#type/<type>` | Document type | `#type/paper`, `#type/meeting`, `#type/idea` |
+| `#topic/<topic>` | Subject matter | `#topic/kubernetes`, `#topic/ml` |
+
+Tags enable cross-folder collection. A paper in `2. Areas/Paper/` tagged `#proj/my-project` can be found when querying the project.
+
+Optional 4th prefix (if vault uses research papers): `#study/paper/<topic>` (e.g., `#study/paper/machine-learning`). Add this only if it matches existing vault conventions.
+
+### Wikilink Rules
+
+- Use `[[wikilinks]]` for all internal vault references
+- Obsidian tracks renames automatically for wikilinks
+- Use `[text](url)` only for external URLs
+- When ingesting, auto-link first occurrence of known document titles
+- Maximum ~10 auto-links per document to avoid noise
+
+### Frontmatter Standard
+
+Every document in PARA directories should have:
+```yaml
+---
+title: Document Title
+created: YYYY-MM-DD
+type: paper|note|reference|meeting|idea|log
+tags: []
+---
+```
+
+Optional fields: `related`, `source`, `summary`
+
+## Safety Rules
+
+{Add your vault-specific safety rules here, e.g.:}
+{- Google Calendar write restrictions}
+{- External API access rules}
+{- Files that should never be modified}

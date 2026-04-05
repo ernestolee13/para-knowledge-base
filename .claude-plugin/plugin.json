@@ -1,0 +1,19 @@
+{
+  "name": "para-knowledge-base",
+  "version": "0.1.0",
+  "description": "LLM Knowledge Base for PARA-structured Obsidian vaults. Inspired by Karpathy's llm-wiki pattern — uses LLM as a knowledge compiler for ingesting, querying, and maintaining your vault.",
+  "author": {
+    "name": "ErnestoLee",
+    "url": "https://github.com/ernestolee13"
+  },
+  "repository": "https://github.com/ernestolee13/para-knowledge-base",
+  "license": "MIT",
+  "keywords": [
+    "obsidian",
+    "para",
+    "knowledge-base",
+    "pkm",
+    "llm-wiki",
+    "karpathy"
+  ]
+}
