@@ -1,0 +1,36 @@
+{
+  "name": "para-knowledge-base",
+  "version": "0.5.0",
+  "description": "Build, query, index, and audit portable PARA knowledge bases in Obsidian with privacy-safe operation telemetry.",
+  "author": {
+    "name": "ErnestoLee",
+    "url": "https://github.com/ernestolee13"
+  },
+  "homepage": "https://github.com/ernestolee13/para-knowledge-base",
+  "repository": "https://github.com/ernestolee13/para-knowledge-base",
+  "license": "MIT",
+  "keywords": [
+    "obsidian",
+    "para",
+    "knowledge-base",
+    "pkm",
+    "llm-wiki",
+    "telemetry"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "PARA Knowledge Base",
+    "shortDescription": "Build and query an indexed PARA vault",
+    "longDescription": "A portable Obsidian knowledge-base workflow for ingest, query, index, lint, and privacy-safe local operation telemetry.",
+    "developerName": "ErnestoLee",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write", "Local telemetry"],
+    "websiteURL": "https://github.com/ernestolee13/para-knowledge-base",
+    "defaultPrompt": [
+      "Initialize this PARA vault without overwriting existing notes.",
+      "Find and synthesize the relevant vault knowledge.",
+      "Ingest these notes and update their indexes."
+    ],
+    "brandColor": "#7C6AF2"
+  }
+}

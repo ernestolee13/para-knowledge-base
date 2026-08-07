@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ernestolee13/para-knowledge-base/contracts/vault-config-v1.schema.json",
+  "title": "PARA Knowledge Base vault configuration v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "para_roots",
+    "index_file_names",
+    "spine_paths",
+    "telemetry",
+    "privacy",
+    "exclusions",
+    "consumer_profile"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "para_roots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["common", "projects", "areas", "resources", "archive"],
+      "properties": {
+        "common": { "$ref": "#/$defs/relativeDirectory" },
+        "projects": { "$ref": "#/$defs/relativeDirectory" },
+        "areas": { "$ref": "#/$defs/relativeDirectory" },
+        "resources": { "$ref": "#/$defs/relativeDirectory" },
+        "archive": { "$ref": "#/$defs/relativeDirectory" },
+        "inbox": { "$ref": "#/$defs/relativeDirectory" }
+      }
+    },
+    "index_file_names": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[^/\\\\]+\\.md$" }
+    },
+    "spine_paths": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/relativePath" }
+    },
+    "telemetry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "active_path", "archive_dir", "max_bytes", "max_archives"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "active_path": { "$ref": "#/$defs/relativePath" },
+        "archive_dir": { "$ref": "#/$defs/relativePath" },
+        "max_bytes": { "type": "integer", "minimum": 65536, "maximum": 104857600 },
+        "max_archives": { "type": "integer", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["content", "paths"],
+      "properties": {
+        "content": { "const": "never" },
+        "paths": { "const": "vault-relative" }
+      }
+    },
+    "exclusions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/relativePath" }
+    },
+    "consumer_profile": { "const": "para-kb-v1" }
+  },
+  "$defs": {
+    "relativeDirectory": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$)).+/$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    }
+  }
+}

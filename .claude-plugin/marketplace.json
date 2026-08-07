@@ -1,0 +1,14 @@
+{
+  "name": "para-knowledge-base",
+  "description": "Portable PARA knowledge-base workflows for Claude Code and Codex.",
+  "owner": {
+    "name": "ErnestoLee"
+  },
+  "plugins": [
+    {
+      "name": "para-knowledge-base",
+      "source": "./",
+      "description": "Build, query, index, and audit PARA-structured Obsidian vaults with privacy-safe operation telemetry."
+    }
+  ]
+}

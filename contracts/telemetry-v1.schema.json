@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ernestolee13/para-knowledge-base/contracts/telemetry-v1.schema.json",
+  "title": "PARA Knowledge Base telemetry event v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "schema_version", "event", "timestamp", "source", "operation_kind"],
+  "properties": {
+    "schema": { "const": "para-kb.telemetry" },
+    "schema_version": { "const": 1 },
+    "event": {
+      "enum": [
+        "QueryStart",
+        "OperationStep",
+        "QuerySummary",
+        "QueryComplete",
+        "BuildStart",
+        "BuildSummary",
+        "BuildComplete",
+        "Stop"
+      ]
+    },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "source": { "type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[A-Za-z0-9._-]+$" },
+    "operation_id": { "type": "string", "minLength": 4, "maxLength": 160 },
+    "operation_kind": { "enum": ["query", "build", "turn"] },
+    "request_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "session_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "source_kind": { "enum": ["inbox", "direct", "batch", "unknown"] },
+    "sequence": { "type": "integer", "minimum": 0 },
+    "tool_name": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "vault_paths": { "$ref": "#/$defs/pathArray" },
+    "duration_ms": { "type": ["integer", "null"], "minimum": 0 },
+    "operation_elapsed_ms": { "type": ["integer", "null"], "minimum": 0 },
+    "turn_elapsed_ms": { "type": ["integer", "null"], "minimum": 0 },
+    "input_tokens": { "type": ["integer", "null"], "minimum": 0 },
+    "output_tokens": { "type": ["integer", "null"], "minimum": 0 },
+    "token_total_for_analysis": { "type": ["integer", "null"], "minimum": 0 },
+    "token_is_operation_delta": { "type": "boolean" },
+    "token_reliability": { "enum": ["high", "medium", "low", "none"] },
+    "request_type": { "enum": ["lookup", "synthesis", "maintenance", "write", "mixed", "unknown"] },
+    "route": {
+      "oneOf": [
+        { "type": "string", "maxLength": 120 },
+        { "type": "array", "uniqueItems": true, "items": { "type": "string", "maxLength": 120 } }
+      ]
+    },
+    "entrypoints": { "$ref": "#/$defs/pathArray" },
+    "documents_read_count": { "type": "integer", "minimum": 0 },
+    "documents_read_paths": { "$ref": "#/$defs/pathArray" },
+    "search_step_count": { "type": "integer", "minimum": 0 },
+    "confidence": { "enum": ["high", "medium", "low", "none"] },
+    "operation_type": { "enum": ["create", "update", "move", "archive", "batch", "mixed", "unknown"] },
+    "kb_ingest_used": { "type": "boolean" },
+    "reference_paths": { "$ref": "#/$defs/pathArray" },
+    "created_paths": { "$ref": "#/$defs/pathArray" },
+    "updated_paths": { "$ref": "#/$defs/pathArray" },
+    "moved_from_paths": { "$ref": "#/$defs/pathArray" },
+    "moved_to_paths": { "$ref": "#/$defs/pathArray" },
+    "index_paths": { "$ref": "#/$defs/pathArray" },
+    "link_pairs": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_path", "target_path"],
+        "properties": {
+          "source_path": { "$ref": "#/$defs/relativeMarkdownPath" },
+          "target_path": { "$ref": "#/$defs/relativeMarkdownPath" }
+        }
+      }
+    },
+    "links_added": { "type": "integer", "minimum": 0 },
+    "backlinks_added": { "type": "integer", "minimum": 0 },
+    "frontmatter_completed": { "type": "integer", "minimum": 0 },
+    "summaries_completed": { "type": "integer", "minimum": 0 },
+    "validation": { "enum": ["passed", "partial", "failed", "unknown"] }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "event": { "not": { "const": "Stop" } } } },
+      "then": { "required": ["operation_id"] }
+    },
+    {
+      "if": { "properties": { "event": { "const": "QuerySummary" } } },
+      "then": { "required": ["request_type", "route", "entrypoints", "documents_read_count", "documents_read_paths", "search_step_count", "confidence"] }
+    },
+    {
+      "if": { "properties": { "event": { "const": "BuildStart" } } },
+      "then": { "required": ["source_kind"] }
+    },
+    {
+      "if": { "properties": { "event": { "const": "BuildSummary" } } },
+      "then": {
+        "required": [
+          "operation_type",
+          "route",
+          "kb_ingest_used",
+          "reference_paths",
+          "created_paths",
+          "updated_paths",
+          "moved_from_paths",
+          "moved_to_paths",
+          "index_paths",
+          "link_pairs",
+          "links_added",
+          "backlinks_added",
+          "frontmatter_completed",
+          "summaries_completed",
+          "validation",
+          "confidence"
+        ]
+      }
+    },
+    {
+      "if": { "properties": { "event": { "enum": ["QueryComplete", "BuildComplete"] } } },
+      "then": { "required": ["operation_elapsed_ms", "token_is_operation_delta", "token_reliability"] }
+    }
+  ],
+  "$defs": {
+    "relativeMarkdownPath": {
+      "type": "string",
+      "minLength": 4,
+      "maxLength": 1024,
+      "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.md$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024,
+      "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "pathArray": {
+      "type": "array",
+      "maxItems": 500,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/relativePath" }
+    }
+  }
+}

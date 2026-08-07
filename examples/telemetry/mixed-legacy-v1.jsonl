@@ -1,0 +1,4 @@
+{"event":"QueryStart","operation_id":"legacy-query-001","query_id":"legacy-request-001","timestamp":"2025-12-01T10:00:00Z"}
+{"event":"PostToolUse","operation_id":"legacy-query-001","query_id":"legacy-request-001","timestamp":"2025-12-01T10:00:01Z","tool_name":"read","vault_paths":["Projects/example/_index.md"]}
+{"event":"QuerySummary","operation_id":"legacy-query-001","query_id":"legacy-request-001","timestamp":"2025-12-01T10:00:05Z","documents_read_count":1,"documents_read_paths":["Projects/example/_index.md"],"entrypoints":["Projects/example/_index.md"],"search_step_count":1,"confidence":"medium"}
+{"event":"QueryComplete","operation_id":"legacy-query-001","query_id":"legacy-request-001","timestamp":"2025-12-01T10:00:06Z","operation_elapsed_ms":6000,"token_total_for_analysis":null,"token_is_operation_delta":false,"token_reliability":"none"}

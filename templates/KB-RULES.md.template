@@ -1,0 +1,24 @@
+<!-- para-kb:start -->
+## PARA Knowledge Base
+
+This vault uses a portable PARA Knowledge Base profile from `.para-kb/config.json`.
+
+| Role | Path |
+| --- | --- |
+| Common/core | `{common_root}` |
+| Projects | `{projects_root}` |
+| Areas | `{areas_root}` |
+| Resources | `{resources_root}` |
+| Archive | `{archive_root}` |
+| Inbox | `{inbox_root}` |
+
+- Use `kb-query` for vault-grounded questions. Narrow with indexes, hubs, tags, backlinks, or short search results before opening full documents.
+- Use `kb-ingest` for Inbox intake and direct wiki creation/update requests. Preserve wikilinks and update affected indexes.
+- Use `kb-index` after structural changes and `kb-lint` for orphan, broken-link, frontmatter, and index-drift checks.
+- Treat `{top_index_path}` and configured category/project indexes as navigation entrypoints.
+- Append human-readable structural changes to `{human_log_path}`.
+- Treat `{telemetry_path}` as local operational data. Do not index it or read it during ordinary queries.
+- Exclude `.para-kb/`, telemetry archives, runtime state, the Obsidian config directory, and configured exclusions from the knowledge corpus.
+- Telemetry may contain opaque IDs, counts, metrics, and vault-relative paths only. Never record prompts, query/answer text, note bodies, excerpts, secrets, or absolute paths.
+- Projects promote only project-owned deliverables; reusable knowledge stays in Resources and is linked. Before archiving, return reusable knowledge to Resources and standing responsibilities to Areas.
+<!-- para-kb:end -->

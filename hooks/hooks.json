@@ -1,0 +1,38 @@
+{
+  "description": "Privacy-safe PARA Knowledge Base operation telemetry",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/para_kb_telemetry.py\" hook userprompt",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/para_kb_telemetry.py\" hook posttool",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/para_kb_telemetry.py\" hook stop",
+            "timeout": 3
+          }
+        ]
+      }
+    ]
+  }
+}

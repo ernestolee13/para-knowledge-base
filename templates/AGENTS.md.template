@@ -1,0 +1,5 @@
+# Agent guidance for this Obsidian vault
+
+Preserve existing instructions above this section. Render and insert `KB-RULES.md.template` here using values from `.para-kb/config.json`.
+
+{PARA_KB_RULES}

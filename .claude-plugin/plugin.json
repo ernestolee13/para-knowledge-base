@@ -1,0 +1,20 @@
+{
+  "name": "para-knowledge-base",
+  "version": "0.5.0",
+  "description": "Build, query, index, and audit portable PARA knowledge bases in Obsidian with privacy-safe operation telemetry.",
+  "author": {
+    "name": "ErnestoLee",
+    "url": "https://github.com/ernestolee13"
+  },
+  "repository": "https://github.com/ernestolee13/para-knowledge-base",
+  "license": "MIT",
+  "keywords": [
+    "obsidian",
+    "para",
+    "knowledge-base",
+    "pkm",
+    "llm-wiki",
+    "karpathy",
+    "telemetry"
+  ]
+}
