@@ -76,6 +76,15 @@ CLAUDE.md       ← vault schema (topics, conventions, wikilink vocabulary)
 - **PARA** is the knowledge base. LLM-compiled, structured, cross-linked.
 - **CLAUDE.md** is the schema. Tells the LLM what topics exist, how notes are organized, what wikilinks are canonical.
 
+### Input sources
+
+The KB wikifies **any Markdown dropped into `Inbox/`** — that's the whole extension point. Adding a new source is just "get it to Markdown," and mature tools already cover most of that, so this plugin doesn't bundle its own converters:
+
+- **Web pages** → [Obsidian Web Clipper](https://obsidian.md/clipper) saves clean Markdown straight into the vault.
+- **PDFs, docs, other formats** → use an existing converter or the official Obsidian **Importer** community plugin to land Markdown in `Inbox/`. Text-layer PDFs convert cleanly; image-only/scanned PDFs need OCR first.
+
+`kb-ingest` then classifies, links, and files whatever Markdown shows up — it doesn't care how the Markdown was produced.
+
 ### Project Lifecycle
 
 PARA categories aren't static bins — knowledge flows between them as a project moves through its lifecycle. A project starts by **promoting** its own deliverables into `1. Projects/` while linking (not moving) the Areas/Resources material it draws on; during the project, anything that would stay useful after the project ends gets written into `3. Resources/` and linked back rather than buried in the project folder; and on completion, `kb-ingest` runs a **decompose pass** before archiving — reusable knowledge returns to Resources, standing responsibilities move to Areas, and only the project-unique record goes to `4. Archive/`. This keeps `4. Archive/` a true cold-storage layer instead of a dumping ground where reusable knowledge quietly becomes unsearchable.
