@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.1 (2026-09-05)
+
+### Fixed
+- `kb-lint` grep fallback no longer reports false-positive broken links and orphans on macOS/iCloud vaults. The fallback path (used only when the `obsidian` CLI is unavailable) now documents three guards that Obsidian's own resolver already applies: normalize filenames and link targets to Unicode NFC before comparing (macOS stores Hangul filenames as NFD), convert the `\|` table-cell alias escape back to `|` before splitting a wikilink, and scan all files rather than only `*.md` so asset embeds resolve (while still flagging an extensionless link to a non-note as genuinely unresolved). The CLI path was already correct; this only hardens the fallback.
+
 ## 0.6.0 (2026-09-05)
 
 ### Changed

@@ -81,6 +81,11 @@ Pre-filter command for grep fallback (mask false positives before extraction):
 sed -E '/^---$/,/^---$/d; /^```/,/^```/d; s/`[^`]*`//g; s/<%[^%]*%>//g'
 ```
 
+**macOS/iCloud + grep-fallback guards** (the CLI path already handles these through Obsidian's own resolver; apply only when `obsidian unresolved`/`orphans` is unavailable — a naive byte-level grep reintroduces all three):
+- **Unicode NFC/NFD**: macOS stores Hangul (and other) filenames decomposed (NFD) while wikilink text is usually composed (NFC). Byte comparison then reports live files as broken and orphaned. Normalize both sides to NFC before comparing, e.g. pipe filenames and link targets through `python3 -c "import sys,unicodedata;[sys.stdout.write(unicodedata.normalize('NFC',l)) for l in sys.stdin]"`.
+- **Table-cell pipe escape**: inside a markdown table an alias link is written `[[target\|alias]]`, where `\|` escapes the column separator. The naive `grep -oE '\[\[[^]|#]+'` then captures `target\` and flags it broken. Convert `\|` to `|` in the pre-filter (append `s/\\\|/|/g`) so the alias splits at the real separator.
+- **Non-`.md` targets**: `[[foo.png]]`, `[[diagram.excalidraw]]` and other asset embeds point at real files, so the existence check must scan `find . -type f`, not only `*.md`. The inverse is a real error, not a false positive: a wikilink to a non-note without its extension (`[[report]]` for `report.pdf`) stays unresolved in Obsidian, so flag it and suggest adding the extension.
+
 **Severity tiers**:
 - Real broken (after FP filter, no matching file or folder): error
 - Folder wikilink: skip (Obsidian-native)
