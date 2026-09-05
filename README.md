@@ -187,7 +187,7 @@ This repository bundles one privacy-safe Python emitter and one `hooks/hooks.jso
 When your Claude/Codex hooks, wrappers, or local automation support it, `kb-query` can write compact records to:
 
 ```text
-0. Common/query-telemetry.jsonl
+0. Common/.telemetry/query-telemetry.jsonl
 ```
 
 This file is operational telemetry, not knowledge content. It is not added to indexes and should not be read during normal search. It is only used when you want to analyze usage patterns such as:
@@ -285,7 +285,7 @@ Inbox/
 4. Archive/_index.md
 ```
 
-Larger or frequently queried projects may also use optional local hubs such as `1. Projects/<slug>/_index.md`. Query telemetry, if configured, should live at `0. Common/query-telemetry.jsonl` and stay out of indexes.
+Larger or frequently queried projects may also use optional local hubs such as `1. Projects/<slug>/_index.md`. Query telemetry, if configured, should live at `0. Common/.telemetry/query-telemetry.jsonl` and stay out of indexes.
 
 **Next**: For daily workflow, automation patterns (morning routine auto-ingest, weekly review auto-lint), Inbox input channels, project move automation, and troubleshooting, see **[USAGE.md](./USAGE.md)**. Korean guide: **[USAGE.ko.md](./USAGE.ko.md)**.
 

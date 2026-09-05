@@ -254,13 +254,13 @@ def default_config(root: Path) -> dict[str, Any]:
         "spine_paths": ["CLAUDE.md", "AGENTS.md", f"{common}index.md", f"{common}log.md"],
         "telemetry": {
             "enabled": True,
-            "active_path": f"{common}query-telemetry.jsonl",
-            "archive_dir": f"{common}telemetry-archive",
+            "active_path": f"{common}.telemetry/query-telemetry.jsonl",
+            "archive_dir": f"{common}.telemetry/archive",
             "max_bytes": 5 * 1024 * 1024,
             "max_archives": 4,
         },
         "privacy": {"content": "never", "paths": "vault-relative"},
-        "exclusions": [".para-kb/", ".obsidian/", ".trash/"],
+        "exclusions": [".para-kb/", ".obsidian/", ".trash/", f"{common}.telemetry/"],
         "consumer_profile": "para-kb-v1",
     }
 
@@ -861,13 +861,13 @@ def default_config_for_profile(root: Path, profile: str) -> dict[str, Any]:
         "spine_paths": ["CLAUDE.md", "AGENTS.md", f"{common}/index.md", f"{common}/log.md"],
         "telemetry": {
             "enabled": True,
-            "active_path": f"{common}/query-telemetry.jsonl",
-            "archive_dir": f"{common}/telemetry-archive",
+            "active_path": f"{common}/.telemetry/query-telemetry.jsonl",
+            "archive_dir": f"{common}/.telemetry/archive",
             "max_bytes": 5 * 1024 * 1024,
             "max_archives": 4,
         },
         "privacy": {"content": "never", "paths": "vault-relative"},
-        "exclusions": [".para-kb/", ".obsidian/", ".trash/"],
+        "exclusions": [".para-kb/", ".obsidian/", ".trash/", f"{common}/.telemetry/"],
         "consumer_profile": "para-kb-v1",
     }
     return validate_config(config)

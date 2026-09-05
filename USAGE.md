@@ -139,7 +139,7 @@ Indexes tell the agent where to look. Telemetry tells you whether that lookup pr
 Recommended path:
 
 ```text
-0. Common/query-telemetry.jsonl
+0. Common/.telemetry/query-telemetry.jsonl
 ```
 
 Principles:

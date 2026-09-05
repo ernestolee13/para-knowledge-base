@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0 (2026-09-05)
+
+### Changed
+- `kb-init` now defaults query/build telemetry to a hidden `0. Common/.telemetry/` location (active log plus an `archive/` for rollover), so the operational JSONL and its archive no longer show up as an empty folder in the Obsidian file explorer. The path stays fully configurable in `.para-kb/config.json` (`telemetry.active_path` / `archive_dir`); existing configs are untouched. The default telemetry directory is also added to `exclusions`.
+
+### Added
+- README documents input sources as an extension point: the KB wikifies any Markdown dropped into `Inbox/`, so non-Markdown formats only need an existing converter (Obsidian Web Clipper, the official Importer plugin) instead of a bundled one.
+
 ## 0.5.0 (2026-08-07)
 
 ### Changed

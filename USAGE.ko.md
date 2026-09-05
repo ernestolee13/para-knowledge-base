@@ -181,7 +181,7 @@ obsidian move path="1. Projects/old-name/file.md" to="4. Archive/진행 중단 �
 권장 위치:
 
 ```text
-0. Common/query-telemetry.jsonl
+0. Common/.telemetry/query-telemetry.jsonl
 ```
 
 원칙:

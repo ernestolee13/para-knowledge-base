@@ -69,7 +69,7 @@ Fallback hierarchy: index/hub -> tag or filename hit list -> short context snipp
 
 ## Query Telemetry
 
-Query telemetry is optional. This skill defines the record shape and semantic summary guidance; runtime hooks, wrappers, or local automation must perform any reliable numeric capture. When configured, write query-related operational records to `0. Common/query-telemetry.jsonl`. Do not create multiple query-log files. The telemetry file is not a knowledge note, is not indexed, and is not read during normal vault search.
+Query telemetry is optional. This skill defines the record shape and semantic summary guidance; runtime hooks, wrappers, or local automation must perform any reliable numeric capture. When configured, write query-related operational records to `0. Common/.telemetry/query-telemetry.jsonl`. Do not create multiple query-log files. The telemetry file is not a knowledge note, is not indexed, and is not read during normal vault search.
 
 Hooks or wrappers should record numeric data when possible:
 - request id

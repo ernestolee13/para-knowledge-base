@@ -12,8 +12,8 @@
   "spine_paths": ["CLAUDE.md", "AGENTS.md", "0. Common/index.md", "0. Common/log.md"],
   "telemetry": {
     "enabled": true,
-    "active_path": "0. Common/query-telemetry.jsonl",
-    "archive_dir": "0. Common/telemetry-archive",
+    "active_path": "0. Common/.telemetry/query-telemetry.jsonl",
+    "archive_dir": "0. Common/.telemetry/archive",
     "max_bytes": 5242880,
     "max_archives": 4
   },
@@ -21,6 +21,6 @@
     "content": "never",
     "paths": "vault-relative"
   },
-  "exclusions": [".para-kb/", "$CONFIG_DIR/", ".trash/"],
+  "exclusions": [".para-kb/", "$CONFIG_DIR/", ".trash/", "0. Common/.telemetry/"],
   "consumer_profile": "para-kb-v1"
 }
