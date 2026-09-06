@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.2 (2026-09-06)
+
+### Changed
+- Public docs no longer carry one maintainer vault's private naming. `USAGE.ko.md` archive examples now use a generic `4. Archive/<slug>/` path instead of a vault-specific sub-folder name, and the 0.4.0 personalization checklist describes the ingest hookup as the user's own daily routine rather than naming a private script. No behavior change.
+
 ## 0.6.1 (2026-09-05)
 
 ### Fixed
@@ -61,7 +66,7 @@
 ## 0.4.0 (2026-05-09)
 
 ### Added (USAGE)
-- **`USAGE.md` Section 10 — Personalization Checklist** — 6-item list users walk through after install: `userIgnoreFilters`, `type` enum updates, tag prefixes, `_index` categorization, morning-routine ingest hookup, log.md habit. Plugin reads vault-specific config; users own the conventions.
+- **`USAGE.md` Section 10 — Personalization Checklist** — 6-item list users walk through after install: `userIgnoreFilters`, `type` enum updates, tag prefixes, `_index` categorization, your own daily ingest routine hookup, log.md habit. Plugin reads vault-specific config; users own the conventions.
 - **`USAGE.md` Section 11 — Anti-patterns** — common pitfalls discovered through real-world cleanup: sub-`_index.md` (breaks 2-tier concept), trusting raw `unresolved` counts (false-positive heavy), target-only progress measurement (instances ≠ targets), orphan-zero perfectionism, `_index.md` count drift.
 
 ### Fixed (kb-index SKILL)

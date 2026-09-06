@@ -128,11 +128,11 @@ vault 내 변경 시 인덱스 깨지지 않게 하는 6단계 체크리스트(�
 
 ```bash
 # 옛 방식 (수동 mv → wikilink 깨짐 → grep + replace 수동)
-mv "1. Projects/old-name" "4. Archive/진행 중단 프로젝트/old-name"
+mv "1. Projects/old-name" "4. Archive/old-name"
 grep -rln "\[\[old-name\]\]" . --include="*.md"   # 잔존 참조 찾아 수동 교체
 
 # 새 방식 (obsidian move — Obsidian이 모든 wikilink 자동 갱신)
-obsidian move path="1. Projects/old-name/file.md" to="4. Archive/진행 중단 프로젝트/old-name/file.md"
+obsidian move path="1. Projects/old-name/file.md" to="4. Archive/old-name/file.md"
 # 폴더 단위는 cli 미지원 — 그건 mv + 잔존 wikilink 검증 필수
 ```
 

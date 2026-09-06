@@ -1,6 +1,6 @@
 {
   "name": "para-knowledge-base",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Build, query, index, and audit portable PARA knowledge bases in Obsidian with privacy-safe operation telemetry.",
   "author": {
     "name": "ErnestoLee",
