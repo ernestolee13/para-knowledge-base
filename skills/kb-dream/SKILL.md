@@ -33,7 +33,7 @@ Score candidates and take the top `max_targets`:
 4. Every note in `extra_note_dirs` changed in the last 60 days, plus its index file.
 5. Task notes (`type: task`) whose `status` is not `done` or `dropped`: is the task still open, already done according to the log, or replaced?
 
-Skip daily notes, archives, data-type documents, and anything modified in the last 24 hours (it is being worked on).
+Skip daily notes, archives, data-type documents, and anything modified in the last 2 hours (it is probably open in an editor right now). A note edited earlier the same day is still a target: a busy day is exactly when claims drift.
 
 **Coverage rule.** Split `max_targets` so that at least 60% are vault notes (groups 1 to 3) and the rest come from `extra_note_dirs`. Finish all of them unless time runs out. A pass that only checks one group, or ends early, must say so in the report's first line and give the reason; that run is recorded as `failed`, not `ok`.
 
