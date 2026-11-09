@@ -57,6 +57,7 @@ Claude: reads the same 30+ files again → 15K tokens again
 | "Find everything about topic X" | Grep entire vault ~5K tokens | Tag search via index ~200 tokens |
 | Ingest a new document | Manual: move, tag, link, update index | `/kb-ingest` — all automated, ~500 tokens |
 | Weekly health check | Not possible | `/kb-lint` — orphans, broken links, stale content |
+| Keep notes true over time | Not possible | `/kb-dream` on a schedule — re-checks volatile notes against logs, fixes the mechanical, proposes the rest |
 
 The key insight: **indexes are cheap to read, and they tell Claude exactly where to look.** Instead of scanning your whole vault every time, Claude reads a 10-line index, picks the right folder, and reads only what's needed.
 
@@ -127,6 +128,19 @@ Answers a question using the compiled knowledge base. Reads relevant PARA pages 
 
 ### `/kb-lint`
 Audits the knowledge base. Checks for broken wikilinks, orphaned notes, pages with no backlinks, topics mentioned in CLAUDE.md that have no corresponding page, and pages that haven't been updated in a configurable period.
+
+### `/kb-dream`
+A consolidation pass ("dreaming", after Anthropic's agent-memory research). `kb-lint` checks structure; `kb-dream` checks whether notes are still *true*. It picks volatile notes (next actions, status lines, stale indexes, optionally an agent's own memory folder), compares their claims with recent logs and the files they name, fixes only machine-owned parts (index entries, dates, a renamed link target), and writes everything else as proposals in a dated report.
+
+Run it on a schedule. Schedules live in `.para-kb/config.json` and work with any agent:
+
+```bash
+python3 scripts/para_kb_schedule.py list                 # schedules, last run, due or not
+python3 scripts/para_kb_schedule.py install dream        # launchd / cron / Task Scheduler
+python3 scripts/para_kb_schedule.py install dream --target print   # just show the entries
+```
+
+If the machine was asleep or no OS timer is installed, the SessionStart hook (or the `kb-query` start step, for agents without hooks) reminds you once that a run is overdue.
 
 ### `/kb-index`
 Regenerates `_index.md` files:

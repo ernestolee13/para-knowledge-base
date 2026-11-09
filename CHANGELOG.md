@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0 (2026-11-09)
+
+### Added
+- `kb-dream` skill: a scheduled consolidation pass ("dreaming"). It re-checks volatile notes (next actions, status lines, stale indexes, and optionally an agent-owned memory folder via `dream.extra_note_dirs`) against recent logs and the files they name, gives each claim a verdict (holds, stale, wrong, unverifiable), fixes only machine-owned parts by default, and writes the rest as proposals in a dated report.
+- `scripts/para_kb_schedule.py`: agent-neutral scheduler. Schedules live in `.para-kb/config.json` (`schedules`), run state in `.para-kb/state/schedules.json`. Installs launchd, cron or Task Scheduler entries; runs tasks headless with `claude`, `codex` or a custom command; `mark` records results.
+- SessionStart hook `due --hook`: silent unless a scheduled task missed its slot (with a grace window), then reminds the agent once. `kb-query` carries the same check for agents without hooks.
+- Config schema: optional `schedules` and `dream` sections.
+
 ## 0.6.2 (2026-09-06)
 
 ### Changed

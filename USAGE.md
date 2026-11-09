@@ -169,6 +169,29 @@ See [examples/telemetry/](./examples/telemetry/) for canonical synthetic records
 
 ## 7. Automation patterns
 
+### Scheduled kb-dream (and other recurring tasks)
+
+Agents differ: some have a scheduler, some do not, and cloud schedulers usually cannot reach a local vault. The plugin therefore splits *what* (a skill), *when* (`schedules` in `.para-kb/config.json`) and *who wakes it* (any of the triggers below).
+
+```json
+"schedules": [
+  {"id": "dream", "task": "kb-dream", "cadence": "weekly", "weekday": "sun", "time": "20:30",
+   "runner": "claude", "model": "sonnet"}
+],
+"dream": {"auto_fix": "mechanical", "report_dir": ".para-kb/reports/dream/",
+          "extra_note_dirs": [{"path": "~/.agent/memory", "label": "agent memory", "mode": "fix"}]}
+```
+
+| Trigger | How |
+|---|---|
+| OS timer | `python3 scripts/para_kb_schedule.py install dream` picks launchd (macOS), cron (Linux) or Task Scheduler (Windows). It runs `para_kb_schedule.py run dream`, which starts the runner headless |
+| Runner | `claude` (`claude -p`, file edits allowed, shell limited to search and this script), `codex` (`codex exec --full-auto`), or `command` with your own wrapper template using `{prompt_file}` |
+| Missed run | SessionStart hook runs `para_kb_schedule.py due --hook` and tells the agent once; agents without hooks get the same check from `kb-query` |
+| Manual | `python3 scripts/para_kb_schedule.py run dream`, or ask the agent to run kb-dream |
+
+Run state (last run, status, report path) is stored in `.para-kb/state/schedules.json`, so a synced config stays identical across machines. `install` is per machine: install the timer on one machine only.
+
+
 Automation should be conservative. Trigger ingest or reports automatically, but avoid destructive cleanup without review.
 
 ### Morning Inbox check

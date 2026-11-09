@@ -1,5 +1,5 @@
 {
-  "description": "Privacy-safe PARA Knowledge Base operation telemetry",
+  "description": "Privacy-safe PARA Knowledge Base operation telemetry and overdue schedule reminders",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -29,6 +29,17 @@
           {
             "type": "command",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/para_kb_telemetry.py\" hook stop",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/para_kb_schedule.py\" due --hook",
             "timeout": 3
           }
         ]

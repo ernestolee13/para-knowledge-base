@@ -103,6 +103,21 @@ fi
 
 ---
 
+## 2-3. kb-dream 정기 실행 (스케줄)
+
+에이전트마다 예약 기능이 있기도 하고 없기도 합니다. 클라우드 예약은 로컬 vault를 읽지 못하는 경우가 많습니다. 그래서 무엇을(스킬), 언제(`.para-kb/config.json`의 `schedules`), 누가 깨울지(아래 방법 중 하나)를 나눴습니다.
+
+```bash
+python3 scripts/para_kb_schedule.py list            # 일정, 마지막 실행, 밀렸는지
+python3 scripts/para_kb_schedule.py install dream   # 맥 launchd, 리눅스 cron, 윈도우 작업 스케줄러
+python3 scripts/para_kb_schedule.py run dream       # 지금 한 번 실행
+```
+
+- 실행기: `claude`(claude -p), `codex`(codex exec), 직접 만든 래퍼(`command`, `{prompt_file}` 자리 표시).
+- 노트북이 꺼져 있어 예약을 놓치면, 세션을 열 때 SessionStart 훅이 한 번 알려 줍니다. 훅이 없는 에이전트는 kb-query 시작 단계에서 같은 확인을 합니다.
+- 실행 기록은 `.para-kb/state/schedules.json`에 남깁니다. 설정 파일은 기기 사이에 그대로 동기화됩니다. 타이머는 한 기기에만 설치합니다.
+- 고치는 범위 기본값은 기계적인 부분(인덱스, 날짜, 이름이 바뀐 링크)만입니다. 본문과 다음 할 일은 보고서에 제안으로 남깁니다.
+
 ## 3. Inbox 입력 채널 만들기
 
 **가장 자주 빠뜨리는 단계**. 자동 ingest가 작동하려면 Inbox에 새 문서가 *흘러 들어와야* 한다. Inbox가 항상 0이면 ingest 자동화는 그림의 떡.

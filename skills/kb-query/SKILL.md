@@ -19,6 +19,8 @@ Answer vault-based questions by narrowing the search path before reading full do
 
 Keep source reading under a small budget by default. Expand only when evidence is insufficient.
 
+Agents without a SessionStart hook: on the first vault question of a session, if `.para-kb/config.json` has `schedules`, run `python3 <plugin>/scripts/para_kb_schedule.py due` once. If a task is overdue, mention it in one line after the answer (for example "kb-dream missed Sunday's run; want me to run it?"). Never run it without asking.
+
 ## Routes
 
 | Route | Use when | First move |

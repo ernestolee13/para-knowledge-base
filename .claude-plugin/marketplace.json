@@ -8,7 +8,7 @@
     {
       "name": "para-knowledge-base",
       "source": "./",
-      "description": "Build, query, index, and audit PARA-structured Obsidian vaults with privacy-safe operation telemetry."
+      "description": "Build, query, index, audit and periodically consolidate (dream) PARA-structured Obsidian vaults with privacy-safe operation telemetry."
     }
   ]
 }
