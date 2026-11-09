@@ -115,6 +115,23 @@ Report: Count of documents missing each field, list worst offenders.
 
 CLI: `obsidian file path=<file>` for mtime; `find -mtime +30` as fallback.
 
+### 7. Task Notes (when the vault keeps one note per task)
+
+Some vaults track work as notes with `type: task` and a `status` property, shown through an Obsidian Base (`.base`) instead of checkboxes. They are reached through the Base, not wikilinks, so **exclude `type: task` notes from the orphan check** and check them here instead:
+
+| Issue | Condition |
+|-------|-----------|
+| BAD_TASK_STATUS | `status` missing or not one of the values the vault documents (default: doing, waiting, todo, someday, done, dropped) |
+| STALE_DOING | `status: doing` and `updated` older than 14 days |
+| OLD_WAITING | `status: waiting` older than 21 days (someone owes a decision) |
+| ORPHAN_TASK_PROJECT | `project` names a project folder that does not exist |
+
+CLI: `obsidian base:query path=<base> format=json` lists what a Base shows; `obsidian properties` for bulk property reads. Whether a task is really still open is a content question for `kb-dream`, not lint.
+
+### 8. Scheduling
+
+Lint can run on a timer like any other KB task: add `{"id": "lint", "task": "kb-lint", "cadence": "weekly"}` under `schedules` in `.para-kb/config.json` and run `python3 <plugin>/scripts/para_kb_schedule.py install lint`. A scheduled lint is read-only unless the schedule's `prompt_extra` asks for `--fix`. Record the run with `para_kb_schedule.py mark lint --status ok --report <path>`.
+
 ## Output Format
 
 ```markdown

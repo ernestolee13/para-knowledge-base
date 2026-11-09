@@ -31,8 +31,11 @@ Score candidates and take the top `max_targets`:
 2. Indexes whose `updated` is older than the newest file in their folder.
 3. Notes whose body states a current state ("is running", "not yet", "blocked", "waiting for") and were last modified more than `lookback_days` ago while their project log moved since.
 4. Every note in `extra_note_dirs` changed in the last 60 days, plus its index file.
+5. Task notes (`type: task`) whose `status` is not `done` or `dropped`: is the task still open, already done according to the log, or replaced?
 
 Skip daily notes, archives, data-type documents, and anything modified in the last 24 hours (it is being worked on).
+
+**Coverage rule.** Split `max_targets` so that at least 60% are vault notes (groups 1 to 3) and the rest come from `extra_note_dirs`. Finish all of them unless time runs out. A pass that only checks one group, or ends early, must say so in the report's first line and give the reason; that run is recorded as `failed`, not `ok`.
 
 ### 2. Gather evidence (cheap first)
 
@@ -45,6 +48,10 @@ For each target, collect only what can confirm or refute its claims:
 
 Do not open long logs whole. Read the date-marked sections you need.
 
+Judging needs evidence. If most verdicts in a pass come out `unverifiable`, evidence was not gathered: go back and read the project log and the files the claims name before writing the report. Checking only that a file exists or an index line is present is structure, which `kb-lint` already covers; the point of this pass is whether the **content** still holds (is that task still open, was that decision replaced, is that number still current).
+
+A path that does not exist on this machine is not automatically `wrong`. Notes often describe other hosts. Mark it `unverifiable (other host?)` unless the note says it lives here.
+
 ### 3. Judge each claim
 
 For every concrete claim in a target, give one verdict:
@@ -56,7 +63,9 @@ For every concrete claim in a target, give one verdict:
 | `wrong` | Evidence shows it was never right (wrong path, wrong number, misread) |
 | `unverifiable` | No evidence either way. Leave it, do not guess |
 
-If many targets need judging, delegate per-target verdicts to a cheaper, faster model and keep the fixing and the report on the main model.
+**Delegate to finish.** Judging 40 targets one by one in the main context runs out of room before the end. Batch the targets by project (5 to 10 per batch) and give each batch to a cheaper, faster subagent with: the target paths, the evidence paths for that project, the verdict table above, and the instruction to return one line per claim (`path | claim | verdict | evidence path and date`). Keep fixing, cross-checking surprising verdicts, and the report on the main model. If no subagent tool exists, judge in batches anyway and write partial results to the report as you go.
+
+Task notes: a `stale` task whose log shows it finished may be set to `status: done` with `updated` and a one-line note under 「메모」 or "Notes" only when the evidence is explicit (the log says done, merged, passed). Anything less is a proposal.
 
 ### 4. Act
 
