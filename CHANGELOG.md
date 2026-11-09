@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.1 (2026-11-09)
+
+### Changed
+- `kb-lint`: orphan metric counts notes only (`.md`, `.canvas`, `.base`); unreferenced assets are reported as a per-folder count. `type: task` notes are excluded from orphans.
+- `kb-dream`: skips only notes edited in the last 2 hours (was 24).
+
 ## 0.7.0 (2026-11-09)
 
 ### Added

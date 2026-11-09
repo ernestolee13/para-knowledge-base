@@ -41,12 +41,15 @@ Files with no incoming wikilinks.
 
 **Without CLI**: `comm -13 <(grep wikilinks sorted) <(find files sorted)`.
 
+**Count notes only.** `obsidian orphans` also lists images, scripts, JSON and HTML. Those are assets, not knowledge pages, and in practice they are most of the list (one real vault: 95 of 105 project "orphans" were assets in work folders such as `poc/`, `assets/`, `docs/handoff/`). Compute the orphan metric over `.md`, `.canvas` and `.base` only. Report unreferenced assets as a separate one-line count per folder ("unreferenced assets: 27 in `docs/handoff/queries/`"), never as orphan documents, and suggest adding work-output folders to `exclusions` instead of linking each file.
+
 **Exclude (false positives)**:
 - `0. Common/daily/*`, `0. Common/weekly/*`, `_index.md`, `CLAUDE.md`, `Dashboard.md`
 - `.para-kb/*`, the configured Obsidian directory, active/archive telemetry, and generated report paths
 - `0. ... 프로젝트 개요.md` — referenced by folder name in indexes, not by full filename
 - `templates/*`, `_templates/*` — Obsidian Templater templates
 - Any file with frontmatter `tags` containing project/topic tags (cross-folder reference is intentional)
+- `type: task` notes (reached through a Base view, see check 7)
 
 Report: List orphans with suggested action (link, tag, or archive).
 
